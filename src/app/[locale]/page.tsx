@@ -1,4 +1,21 @@
+import type { Metadata } from "next"
 import { setRequestLocale } from "next-intl/server"
+import { Hero } from "@/components/blocks/hero"
+import { TrustStrip } from "@/components/blocks/trust-strip"
+import { SolutionCarousel } from "@/components/blocks/solution-carousel"
+import { MaterialComparisonTable } from "@/components/blocks/material-comparison-table"
+import { TwoPillarSection } from "@/components/blocks/two-pillar-section"
+import { CommoditiesGrid } from "@/components/blocks/commodities-grid"
+import { FinalCta } from "@/components/blocks/final-cta"
+import { loadPageContent } from "@/lib/content/load"
+import { homeSchema } from "@/lib/content/schema"
+import type { Locale } from "@/i18n/routing"
+
+export const metadata: Metadata = {
+  title: "Superalloys for Extreme Environments",
+  description:
+    "Swiss-controlled supply of Inconel, Hastelloy, Duplex and Monel for high-temperature, corrosive and high-pressure applications.",
+}
 
 export default async function HomePage({
   params,
@@ -8,12 +25,24 @@ export default async function HomePage({
   const { locale } = await params
   setRequestLocale(locale)
 
+  const { frontmatter } = await loadPageContent(
+    locale as Locale,
+    "home",
+    homeSchema,
+  )
+
   return (
-    <main id="main" className="mx-auto w-full max-w-[80rem] px-6 py-section-mobile lg:px-16 lg:py-section">
-      <h1 className="text-display-l font-medium">Rigitrade</h1>
-      <p className="mt-4 text-body-l text-ink/80">
-        Swiss-controlled supply of superalloys for extreme environments. Foundation in place — content blocks coming online.
-      </p>
-    </main>
+    <>
+      <Hero hero={frontmatter.hero} locale={locale as Locale} />
+      <TrustStrip items={frontmatter.trust.items} />
+      <SolutionCarousel solutions={frontmatter.solutions} locale={locale as Locale} />
+      <MaterialComparisonTable
+        materials={frontmatter.materials}
+        locale={locale as Locale}
+      />
+      <TwoPillarSection pillars={frontmatter.pillars} />
+      <CommoditiesGrid commodities={frontmatter.commodities} locale={locale as Locale} />
+      <FinalCta finalCta={frontmatter.finalCta} locale={locale as Locale} />
+    </>
   )
 }

@@ -6,6 +6,10 @@ import { Analytics } from "@vercel/analytics/next"
 import { routing, type Locale } from "@/i18n/routing"
 import { switzer, jetbrains } from "@/lib/fonts"
 import { cn } from "@/lib/utils/cn"
+import { SiteHeader } from "@/components/interactive/site-header"
+import { SiteFooter } from "@/components/interactive/site-footer"
+import { loadSharedContent } from "@/lib/content/load"
+import { footerSchema, navSchema } from "@/lib/content/schema"
 
 export const metadata: Metadata = {
   title: { default: "Rigitrade", template: "%s · Rigitrade" },
@@ -37,10 +41,37 @@ export default async function LocaleLayout({
   setRequestLocale(locale)
 
   const messages = await getMessages()
+  const nav = await loadSharedContent(locale as Locale, "nav", navSchema)
+  const footer = await loadSharedContent(locale as Locale, "footer", footerSchema)
+
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://rigitrade.com"
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Rigitrade AG",
+    url: baseUrl,
+    logo: `${baseUrl}/og-default.png`,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Schaffhauserstr. 550",
+      addressLocality: "Zürich",
+      postalCode: "8052",
+      addressCountry: "CH",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "Customer Support",
+      email: "info@rigitrade.com",
+    },
+  }
 
   return (
     <html lang={locale} className={cn(switzer.variable, jetbrains.variable)}>
       <body className="bg-paper text-ink antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
         <NextIntlClientProvider locale={locale as Locale} messages={messages}>
           <a
             href="#main"
@@ -48,7 +79,13 @@ export default async function LocaleLayout({
           >
             Skip to content
           </a>
-          {children}
+          <SiteHeader
+            locale={locale as Locale}
+            links={nav.links}
+            cta={nav.cta}
+          />
+          <main id="main">{children}</main>
+          <SiteFooter locale={locale as Locale} content={footer} />
           <Analytics />
         </NextIntlClientProvider>
       </body>
