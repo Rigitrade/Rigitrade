@@ -51,3 +51,20 @@ next-env.d.ts
 
 # Lighthouse CI
 /.lighthouseci/
+
+# IDE / editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Local archives & one-off scripts output
+*.log
+*.zip
