@@ -1,12 +1,10 @@
 import { test, expect } from "@playwright/test"
 
 const ROUTES = [
-  { path: "/en/", h1Pattern: /Superalloys for Extreme Environments/i },
-  { path: "/en/solutions/", h1Pattern: /Engineered for the conditions/i },
+  { path: "/en/", h1Pattern: /High-Performance Superalloys & Seamless Tubes/i },
   { path: "/en/materials/", h1Pattern: /right alloy/i },
-  { path: "/en/commodities/", h1Pattern: /Structured trading/i },
-  { path: "/en/about/", h1Pattern: /Swiss-incorporated/i },
-  { path: "/en/contact/", h1Pattern: /technical challenge/i },
+  { path: "/en/about/", h1Pattern: /Swiss-managed.*Mill-produced/i },
+  { path: "/en/contact/", h1Pattern: /Secure your supply chain/i },
   { path: "/en/privacy/", h1Pattern: /Privacy/i },
 ] as const
 
@@ -23,43 +21,116 @@ test.describe("smoke: pages load", () => {
   }
 })
 
+test.describe("smoke: removed routes return 404", () => {
+  test("/en/commodities/ no longer exists", async ({ page }) => {
+    const response = await page.goto("/en/commodities/")
+    expect(response?.status()).toBe(404)
+  })
+
+  test("/en/solutions/ no longer exists", async ({ page }) => {
+    const response = await page.goto("/en/solutions/")
+    expect(response?.status()).toBe(404)
+  })
+})
+
 test.describe("smoke: shell", () => {
   test("Wordmark links to home", async ({ page }) => {
-    await page.goto("/en/solutions/")
+    await page.goto("/en/materials/")
     await page.getByRole("link", { name: "Rigitrade home" }).first().click()
     await expect(page).toHaveURL(/\/en\/?$/)
   })
 
-  test("Footer renders sister brands", async ({ page }) => {
+  test("Footer shows new tagline and AOD technology tag", async ({ page }) => {
     await page.goto("/en/")
-    await expect(page.getByRole("link", { name: "Digihome" }).first()).toBeVisible()
-    await expect(page.getByRole("link", { name: "Senergic" }).first()).toBeVisible()
+    await expect(
+      page.getByText("When standard solutions are not enough."),
+    ).toBeVisible()
+    await expect(
+      page.getByText("ADVANCED REFINING — AOD TECHNOLOGY"),
+    ).toBeVisible()
+  })
+
+  test("Footer no longer shows sister brand links", async ({ page }) => {
+    await page.goto("/en/")
+    await expect(page.getByRole("link", { name: "Digihome" })).toHaveCount(0)
+    await expect(page.getByRole("link", { name: "Senergic" })).toHaveCount(0)
+  })
+
+  test("Nav drops Commodities link", async ({ page }) => {
+    await page.goto("/en/")
+    await expect(
+      page.getByRole("link", { name: "Commodities", exact: true }),
+    ).toHaveCount(0)
   })
 })
 
-test.describe("smoke: homepage blocks", () => {
-  test("Trust strip renders all certifications", async ({ page }) => {
+test.describe("smoke: homepage docx sections", () => {
+  test("Hero shows AOD launch banner", async ({ page }) => {
     await page.goto("/en/")
-    await expect(page.getByText("Full Traceability", { exact: true })).toBeVisible()
-    await expect(page.getByText("Swiss Quality Control", { exact: true })).toBeVisible()
-    await expect(page.getByText("Audited Supply Chains", { exact: true })).toBeVisible()
+    await expect(
+      page.getByText(
+        /Advanced AOD-based production capability in the Middle East — launching 2026/i,
+      ),
+    ).toBeVisible()
   })
 
-  test("Material comparison table renders all 6 alloys", async ({ page }) => {
+  test("Strategic Value drivers render", async ({ page }) => {
     await page.goto("/en/")
-    const table = page.getByRole("table")
-    await expect(table).toBeVisible()
-    await expect(table.getByText("Inconel 625")).toBeVisible()
-    await expect(table.getByText("Inconel 718")).toBeVisible()
-    await expect(table.getByText("Hastelloy C-276")).toBeVisible()
-    await expect(table.getByText("Duplex 2205")).toBeVisible()
-    await expect(table.getByText("Super Duplex 2507")).toBeVisible()
-    await expect(table.getByText("Monel 400")).toBeVisible()
+    await expect(page.getByText("Plant uptime", { exact: true })).toBeVisible()
+    await expect(page.getByText("Operational safety", { exact: true })).toBeVisible()
+    await expect(page.getByText("Total lifecycle cost", { exact: true })).toBeVisible()
   })
 
-  test("Solutions carousel is present", async ({ page }) => {
+  test("Core Capabilities renders three products", async ({ page }) => {
     await page.goto("/en/")
-    await expect(page.getByRole("region", { name: "Solutions carousel" })).toBeVisible()
+    await expect(page.getByText("Seamless Pipes & Tubes")).toBeVisible()
+    await expect(page.getByText("Nickel Alloy Piping Systems")).toBeVisible()
+    await expect(page.getByText("Custom Cast Components")).toBeVisible()
+  })
+
+  test("Metallurgy Authority shows 3 alloy families", async ({ page }) => {
+    await page.goto("/en/")
+    await expect(page.getByText("Nickel-Based Superalloys")).toBeVisible()
+    await expect(page.getByText("Ultra-Low Carbon Steels (ULC)")).toBeVisible()
+    await expect(page.getByText("Specialty Stainless & Duplex")).toBeVisible()
+  })
+
+  test("Manufacturing Technology shows AOD + production route", async ({
+    page,
+  }) => {
+    await page.goto("/en/")
+    await expect(
+      page.getByRole("heading", { name: "Advanced AOD Refining" }),
+    ).toBeVisible()
+    await expect(
+      page.getByText(/EAF → AOD → Ladle Furnace → Continuous Casting/),
+    ).toBeVisible()
+  })
+
+  test("Production Capacity shows capacity numbers", async ({ page }) => {
+    await page.goto("/en/")
+    await expect(page.getByText(/17 tons\/day seamless pipes/)).toBeVisible()
+    await expect(page.getByText(/Manufacturing: United Kingdom & Egypt/)).toBeVisible()
+    await expect(page.getByText(/Headquarters: Zürich, Switzerland/)).toBeVisible()
+  })
+
+  test("Application Focus lists six industries", async ({ page }) => {
+    await page.goto("/en/")
+    await expect(page.getByText("Oil & Gas", { exact: true })).toBeVisible()
+    await expect(page.getByText("Refineries", { exact: true })).toBeVisible()
+    await expect(page.getByText("Petrochemicals", { exact: true })).toBeVisible()
+    await expect(page.getByText("Fertilizer", { exact: true })).toBeVisible()
+    await expect(page.getByText("Power Generation", { exact: true })).toBeVisible()
+    await expect(page.getByText("Marine & Offshore", { exact: true })).toBeVisible()
+  })
+
+  test("Final CTA shows new headline", async ({ page }) => {
+    await page.goto("/en/")
+    await expect(
+      page.getByRole("heading", {
+        name: /Secure Your Supply Chain\. Eliminate Material Risk\./i,
+      }),
+    ).toBeVisible()
   })
 })
 
@@ -80,7 +151,7 @@ test.describe("smoke: forms", () => {
 })
 
 test.describe("smoke: i18n", () => {
-  test("DE locale renders with German nav", async ({ page }) => {
+  test("DE locale renders with html[lang=de]", async ({ page }) => {
     await page.goto("/de/")
     await expect(page.locator("html")).toHaveAttribute("lang", "de")
   })
@@ -99,11 +170,14 @@ test.describe("smoke: a11y essentials", () => {
     await expect(page.getByText(/skip to content/i)).toBeFocused()
   })
 
-  test("All routes have a unique <h1>", async ({ page }) => {
+  test("All routes have an h1", async ({ page }) => {
     for (const route of ROUTES) {
       await page.goto(route.path)
       const h1Count = await page.locator("h1").count()
-      expect(h1Count, `${route.path} should have exactly one h1`).toBeGreaterThanOrEqual(1)
+      expect(
+        h1Count,
+        `${route.path} should have at least one h1`,
+      ).toBeGreaterThanOrEqual(1)
     }
   })
 })
