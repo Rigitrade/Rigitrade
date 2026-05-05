@@ -4,9 +4,7 @@ import { Stack } from "@/components/primitives/stack"
 import { Cluster } from "@/components/primitives/cluster"
 import { LinkButton } from "@/components/ui/link-button"
 import { DisplayHeading } from "@/components/typography/display-heading"
-import { SectionLabel } from "@/components/typography/section-label"
 import { VerticalRail } from "@/components/typography/vertical-rail"
-import { RotatingSeal } from "@/components/interactive/rotating-seal"
 import type { HomeContent } from "@/lib/content/schema"
 
 type HeroProps = {
@@ -26,13 +24,11 @@ export function Hero({ hero, locale }: HeroProps) {
         className="absolute inset-0 -z-10 object-cover"
       />
 
-      {/* Dark gradient overlay for text legibility */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/30 via-ink/50 to-ink/85"
+        className="absolute inset-0 -z-10 bg-gradient-to-tr from-ink/90 via-ink/55 to-ink/30"
       />
 
-      {/* Top section label, top-left */}
       <div className="absolute left-6 top-24 sm:left-8 lg:left-16">
         <span className="font-mono text-micro uppercase tracking-[0.16em] text-paper/70">
           {hero.number} — {hero.label}
@@ -87,14 +83,6 @@ export function Hero({ hero, locale }: HeroProps) {
           </div>
         </div>
       </Container>
-
-      <div className="absolute bottom-8 right-8 hidden lg:block">
-        <RotatingSeal
-          text="· SWISS-MANAGED · MILL-PRODUCED · GLOBALLY DELIVERED "
-          size={140}
-          className="[&_span]:!text-paper/80"
-        />
-      </div>
 
       <div className="absolute left-4 top-1/2 hidden -translate-y-1/2 xl:block">
         <VerticalRail className="!text-paper/50">

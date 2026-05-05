@@ -8,36 +8,30 @@ type IndustryTilesProps = {
   content: HomeContent["applications"]
 }
 
-const INDUSTRY_IMAGE_MAP: Record<string, { src: string; alt: string; tagline: string }> = {
+const INDUSTRY_IMAGE_MAP: Record<string, { src: string; alt: string }> = {
   "Oil & Gas": {
     src: "/img/industries/oil-gas.jpg",
     alt: "Offshore oil and gas platform infrastructure",
-    tagline: "Subsea, refining, transport",
   },
   Refineries: {
     src: "/img/industries/refineries.jpg",
-    alt: "Refinery process infrastructure with pipework",
-    tagline: "Process piping, fittings, valves",
+    alt: "Refinery process plant with extensive pipework",
   },
   Petrochemicals: {
     src: "/img/industries/petrochemicals.jpg",
-    alt: "Petrochemical plant pipework",
-    tagline: "Aggressive media, high temperature",
+    alt: "Petrochemical plant tower",
   },
   Fertilizer: {
     src: "/img/industries/fertilizer.jpg",
-    alt: "Fertilizer production facility",
-    tagline: "Urea, phosphate, ammonia processes",
+    alt: "Process plant infrastructure",
   },
   "Power Generation": {
     src: "/img/industries/power.jpg",
-    alt: "Power generation turbine and pipework",
-    tagline: "Steam, gas turbine, nuclear",
+    alt: "Power generation facility",
   },
   "Marine & Offshore": {
     src: "/img/industries/marine.jpg",
-    alt: "Marine and offshore platform",
-    tagline: "Seawater, subsea, structural",
+    alt: "Marine offshore platform at sea",
   },
 }
 
@@ -53,42 +47,34 @@ export function IndustryTiles({ content }: IndustryTilesProps) {
             <p className="text-body-l text-ink/80">{content.intro}</p>
           </div>
         </div>
-      </Container>
 
-      <Container>
         <div className="grid grid-cols-1 gap-px bg-hairline md:grid-cols-2 lg:grid-cols-3">
           {content.industries.map((industry) => {
             const meta = INDUSTRY_IMAGE_MAP[industry] ?? {
               src: "/img/industries/oil-gas.jpg",
               alt: industry,
-              tagline: "",
             }
             return (
               <article
                 key={industry}
-                className="group relative isolate aspect-square overflow-hidden bg-ink"
+                className="group relative isolate aspect-[4/5] overflow-hidden bg-ink"
               >
                 <Image
                   src={meta.src}
                   alt={meta.alt}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 <div
                   aria-hidden="true"
-                  className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/40 to-ink/0 transition-opacity duration-300 group-hover:from-ink/85"
+                  className="absolute inset-0 bg-gradient-to-t from-ink/95 via-ink/35 to-ink/0"
                 />
-                <div className="absolute inset-0 flex flex-col justify-end p-6 lg:p-8">
-                  <span className="mb-2 font-mono text-micro uppercase tracking-[0.16em] text-forge">
+                <div className="absolute inset-x-0 bottom-0 p-6 lg:p-8">
+                  <span className="font-mono text-micro uppercase tracking-[0.16em] text-forge">
                     Application
                   </span>
-                  <h3 className="text-h2 font-medium text-paper">{industry}</h3>
-                  {meta.tagline && (
-                    <p className="mt-2 max-h-0 overflow-hidden text-body text-paper/80 opacity-0 transition-all duration-500 group-hover:max-h-20 group-hover:opacity-100">
-                      {meta.tagline}
-                    </p>
-                  )}
+                  <h3 className="mt-2 text-h2 font-medium text-paper">{industry}</h3>
                 </div>
               </article>
             )

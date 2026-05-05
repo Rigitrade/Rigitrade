@@ -23,41 +23,28 @@ export function CoreCapabilities({ content }: CoreCapabilitiesProps) {
           {content.items.map((item, i) => (
             <article
               key={item.title}
-              className="group relative isolate overflow-hidden bg-ink text-paper"
+              className="group relative isolate flex flex-col bg-paper"
             >
               {item.image && (
-                <div className="relative aspect-[4/5]">
+                <div className="relative aspect-[4/5] overflow-hidden bg-stone">
                   <ResponsiveImage
                     src={item.image.src}
                     alt={item.image.alt}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
-                    className="transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-t from-ink via-ink/60 to-ink/10 transition-opacity duration-300"
+                    className="transition-transform duration-1000 ease-out group-hover:scale-105"
                   />
                 </div>
               )}
-              <div className="absolute inset-x-0 bottom-0 p-6">
-                <Stack gap="2">
-                  <span className="font-mono text-micro uppercase tracking-[0.16em] text-paper/60">
+              <div className="border-x border-b border-hairline p-6">
+                <Stack gap="3">
+                  <span className="font-mono text-micro uppercase tracking-[0.16em] text-ink/50">
                     {String(i + 1).padStart(2, "0")} — Capability
                   </span>
-                  <h3 className="text-h2 font-medium text-paper">
-                    {item.title}
-                  </h3>
-                  <DataChip
-                    tone="accent"
-                    className="border-forge/60 bg-paper/0 text-forge"
-                  >
-                    {item.description}
-                  </DataChip>
+                  <h3 className="text-h3 font-medium text-ink">{item.title}</h3>
+                  <DataChip>{item.description}</DataChip>
                   {item.detail && (
-                    <p className="mt-2 max-h-0 overflow-hidden text-body text-paper/80 opacity-0 transition-all duration-500 group-hover:max-h-32 group-hover:opacity-100">
-                      {item.detail}
-                    </p>
+                    <p className="text-body text-ink/70">{item.detail}</p>
                   )}
                 </Stack>
               </div>
