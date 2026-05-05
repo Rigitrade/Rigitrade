@@ -1,9 +1,7 @@
+import Image from "next/image"
 import { Container } from "@/components/primitives/container"
-import { Section } from "@/components/primitives/section"
 import { Stack } from "@/components/primitives/stack"
 import { Cluster } from "@/components/primitives/cluster"
-import { Hairline } from "@/components/primitives/hairline"
-import { ResponsiveImage } from "@/components/primitives/responsive-image"
 import { LinkButton } from "@/components/ui/link-button"
 import { DisplayHeading } from "@/components/typography/display-heading"
 import { SectionLabel } from "@/components/typography/section-label"
@@ -18,23 +16,49 @@ type HeroProps = {
 
 export function Hero({ hero, locale }: HeroProps) {
   return (
-    <Section className="relative min-h-[85vh] lg:min-h-screen lg:py-section-loose">
-      <Container>
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="lg:col-span-7">
+    <section className="relative isolate flex min-h-[100vh] items-end overflow-hidden bg-ink text-paper">
+      <Image
+        src={hero.image.src}
+        alt={hero.image.alt}
+        fill
+        priority
+        sizes="100vw"
+        className="absolute inset-0 -z-10 object-cover"
+      />
+
+      {/* Dark gradient overlay for text legibility */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-ink/30 via-ink/50 to-ink/85"
+      />
+
+      {/* Top section label, top-left */}
+      <div className="absolute left-6 top-24 sm:left-8 lg:left-16">
+        <span className="font-mono text-micro uppercase tracking-[0.16em] text-paper/70">
+          {hero.number} — {hero.label}
+        </span>
+      </div>
+
+      <Container className="pb-section-mobile pt-32 lg:pb-section">
+        <div className="grid grid-cols-1 lg:grid-cols-12">
+          <div className="lg:col-span-9">
             <Stack gap="6">
-              <SectionLabel number={hero.number} label={hero.label} />
-              <DisplayHeading as="h1" size="display-xl" mode="mount">
+              <DisplayHeading
+                as="h1"
+                size="display-xl"
+                mode="mount"
+                className="text-paper"
+              >
                 {hero.headline}
               </DisplayHeading>
-              <p className="font-mono text-micro uppercase tracking-[0.08em] text-ink/70">
+              <p className="font-mono text-micro uppercase tracking-[0.16em] text-paper/70">
                 {hero.subhead}
               </p>
-              <p className="max-w-[60ch] text-body-l text-ink/80">{hero.body}</p>
+              <p className="max-w-[60ch] text-body-l text-paper/80">{hero.body}</p>
 
               {hero.banner && (
-                <div className="border-l-2 border-forge bg-forge/5 px-4 py-3 max-w-[60ch]">
-                  <p className="text-body text-ink">
+                <div className="max-w-[60ch] border-l-2 border-forge bg-paper/5 px-4 py-3 backdrop-blur-sm">
+                  <p className="text-body text-paper">
                     <span aria-hidden="true" className="mr-2 font-mono text-forge">
                       ▸
                     </span>
@@ -53,7 +77,7 @@ export function Hero({ hero, locale }: HeroProps) {
                 </LinkButton>
                 <LinkButton
                   href={`/${locale}${hero.secondaryCta.href}`}
-                  variant="secondary"
+                  variant="inverted"
                   size="lg"
                 >
                   {hero.secondaryCta.label}
@@ -61,35 +85,22 @@ export function Hero({ hero, locale }: HeroProps) {
               </Cluster>
             </Stack>
           </div>
-
-          <div className="lg:col-span-5">
-            <div className="relative aspect-[4/5] overflow-hidden border border-hairline bg-stone">
-              <ResponsiveImage
-                src={hero.image.src}
-                alt={hero.image.alt}
-                fill
-                sizes="(max-width: 1024px) 100vw, 40vw"
-                priority
-              />
-            </div>
-          </div>
         </div>
       </Container>
 
-      <div className="absolute bottom-8 left-8 hidden lg:block">
+      <div className="absolute bottom-8 right-8 hidden lg:block">
         <RotatingSeal
           text="· SWISS-MANAGED · MILL-PRODUCED · GLOBALLY DELIVERED "
-          size={160}
+          size={140}
+          className="[&_span]:!text-paper/80"
         />
       </div>
 
       <div className="absolute left-4 top-1/2 hidden -translate-y-1/2 xl:block">
-        <VerticalRail>API · ASTM · ASME · NACE</VerticalRail>
+        <VerticalRail className="!text-paper/50">
+          API · ASTM · ASME · NACE
+        </VerticalRail>
       </div>
-
-      <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 lg:block">
-        <Hairline orientation="vertical" className="h-8 bg-ink/30" />
-      </div>
-    </Section>
+    </section>
   )
 }
