@@ -20,6 +20,9 @@ type DisplayHeadingProps = {
   children: ReactNode
   className?: string
   animate?: boolean
+  /** "mount" → reveal on initial render (use for hero / above-the-fold).
+   *  "scroll" → reveal when entering viewport (default). */
+  mode?: "mount" | "scroll"
 }
 
 export function DisplayHeading({
@@ -28,6 +31,7 @@ export function DisplayHeading({
   children,
   className,
   animate = true,
+  mode = "scroll",
 }: DisplayHeadingProps) {
   const Tag = as as ElementType
   const reduce = useReducedMotion()
@@ -47,6 +51,18 @@ export function DisplayHeading({
     )
   }
 
+  const motionProps =
+    mode === "mount"
+      ? {
+          initial: { y: "100%" },
+          animate: { y: "0%" },
+        }
+      : {
+          initial: { y: "100%" },
+          whileInView: { y: "0%" },
+          viewport: { once: true, margin: "-10%" },
+        }
+
   return (
     <Tag
       className={cn(
@@ -58,9 +74,7 @@ export function DisplayHeading({
       <span className="block overflow-hidden">
         <motion.span
           className="block"
-          initial={{ y: "100%" }}
-          whileInView={{ y: "0%" }}
-          viewport={{ once: true, margin: "-10%" }}
+          {...motionProps}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
           {children as string}

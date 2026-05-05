@@ -24,7 +24,7 @@ export function Hero({ hero, locale }: HeroProps) {
           <div className="lg:col-span-7">
             <Stack gap="6">
               <SectionLabel number={hero.number} label={hero.label} />
-              <DisplayHeading as="h1" size="display-xl">
+              <DisplayHeading as="h1" size="display-xl" mode="mount">
                 {hero.headline}
               </DisplayHeading>
               <p className="font-mono text-micro uppercase tracking-[0.08em] text-ink/70">
