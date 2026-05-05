@@ -8,6 +8,7 @@ import { PageHeader } from "@/components/blocks/page-header"
 import { FinalCta } from "@/components/blocks/final-cta"
 import { SectionLabel } from "@/components/typography/section-label"
 import { DisplayHeading } from "@/components/typography/display-heading"
+import { LeaderDots } from "@/components/typography/leader-dots"
 import { loadPageContent } from "@/lib/content/load"
 import { homeSchema, aboutPageSchema } from "@/lib/content/schema"
 import type { Locale } from "@/i18n/routing"
@@ -15,7 +16,7 @@ import type { Locale } from "@/i18n/routing"
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Rigitrade AG — Swiss-incorporated holding company. Engineering-grade execution. Less is more.",
+    "Rigitrade AG — Swiss-managed manufacturer of high-performance seamless pipes and superalloy components. British metallurgical heritage, AOD refining, UK + Egypt manufacturing.",
 }
 
 export default async function AboutPage({
@@ -46,28 +47,52 @@ export default async function AboutPage({
       <Section>
         <Container>
           <Stack gap="6">
-            <SectionLabel number="01" label="HOLDING" />
+            <SectionLabel number="01" label="HERITAGE" />
             <DisplayHeading as="h2" size="display-m" className="max-w-[20ch]">
-              {frontmatter.holding.title}
+              {frontmatter.heritage.title}
             </DisplayHeading>
-            <p className="max-w-[60ch] text-body-l text-ink/80">
-              {frontmatter.holding.body}
+            <p className="max-w-[65ch] text-body-l text-ink/80">
+              {frontmatter.heritage.body}
             </p>
-            <Hairline className="my-8" />
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {frontmatter.holding.sisterBrands.map((brand) => (
-                <div
-                  key={brand.domain}
-                  className="border border-hairline p-6 transition-colors hover:border-ink"
+          </Stack>
+        </Container>
+      </Section>
+
+      <Section surface="stone">
+        <Container>
+          <Stack gap="6">
+            <SectionLabel number="02" label="FACILITIES" />
+            <Hairline />
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+              {frontmatter.facilities.map((f) => (
+                <article
+                  key={f.location}
+                  className="border border-hairline bg-paper p-6"
                 >
                   <Stack gap="2">
-                    <h3 className="text-h3 font-medium">{brand.name}</h3>
-                    <p className="font-mono text-micro uppercase tracking-[0.08em] text-ink/60">
-                      {brand.domain}
-                    </p>
-                    <p className="text-body text-ink/80">{brand.sector}</p>
+                    <span className="font-mono text-micro uppercase tracking-[0.08em] text-ink/60">
+                      {f.role}
+                    </span>
+                    <h3 className="text-h3 font-medium">{f.location}</h3>
+                    {f.detail && (
+                      <p className="text-body text-ink/80">{f.detail}</p>
+                    )}
                   </Stack>
-                </div>
+                </article>
+              ))}
+            </div>
+          </Stack>
+        </Container>
+      </Section>
+
+      <Section>
+        <Container>
+          <Stack gap="6">
+            <SectionLabel number="03" label="TIMELINE" />
+            <Hairline />
+            <div className="max-w-2xl space-y-3">
+              {frontmatter.timeline.map((t) => (
+                <LeaderDots key={t.milestone} left={t.milestone} right={t.date} />
               ))}
             </div>
           </Stack>

@@ -20,6 +20,11 @@ export function FinalCta({ finalCta, locale }: FinalCtaProps) {
             <DisplayHeading as="h2" size="display-m" className="text-paper">
               {finalCta.headline}
             </DisplayHeading>
+            {finalCta.body && (
+              <p className="max-w-[60ch] text-body-l text-paper/80">
+                {finalCta.body}
+              </p>
+            )}
             <Cluster gap="3">
               <LinkButton
                 href={`/${locale}${finalCta.primaryCta.href}`}

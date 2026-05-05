@@ -3,6 +3,7 @@ import { Container } from "@/components/primitives/container"
 import { Section } from "@/components/primitives/section"
 import { Wordmark } from "@/components/typography/wordmark"
 import { Hairline } from "@/components/primitives/hairline"
+import { DisplayHeading } from "@/components/typography/display-heading"
 import type { FooterContent } from "@/lib/content/schema"
 
 type SiteFooterProps = {
@@ -14,17 +15,33 @@ export function SiteFooter({ locale, content }: SiteFooterProps) {
   return (
     <Section as="footer" surface="ink" density="loose" className="text-paper">
       <Container>
-        <div className="mb-12">
+        <div className="mb-16">
           <Wordmark size="xl" className="text-paper" />
+          <DisplayHeading
+            as="h2"
+            size="display-m"
+            className="mt-8 max-w-[20ch] text-paper"
+            animate={false}
+          >
+            {content.tagline}
+          </DisplayHeading>
+          <p className="mt-6 inline-flex items-center gap-3 font-mono text-micro uppercase tracking-[0.16em] text-forge">
+            <span aria-hidden="true" className="inline-block h-2 w-2 bg-forge" />
+            {content.technologyTag}
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
+        <Hairline className="bg-paper/20" />
+
+        <div className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-3">
           <div>
             <h3 className="mb-4 font-mono text-micro uppercase tracking-[0.08em] text-paper/60">
               Office
             </h3>
             <p className="text-body text-paper">{content.office.company}</p>
-            <p className="mt-1 text-body text-paper/80">{content.office.address}</p>
+            <p className="mt-1 text-body text-paper/80">
+              {content.office.address}
+            </p>
             {content.office.cheNumber && (
               <p className="mt-2 font-mono text-caption text-paper/60">
                 {content.office.cheNumber}
@@ -48,26 +65,6 @@ export function SiteFooter({ locale, content }: SiteFooterProps) {
             >
               {content.contact.phone}
             </a>
-          </div>
-
-          <div>
-            <h3 className="mb-4 font-mono text-micro uppercase tracking-[0.08em] text-paper/60">
-              Sister Brands
-            </h3>
-            <ul className="space-y-2">
-              {content.sisterBrands.map((brand) => (
-                <li key={brand.href}>
-                  <a
-                    href={brand.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-body text-paper/80 hover:text-paper"
-                  >
-                    {brand.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
           </div>
 
           <div>

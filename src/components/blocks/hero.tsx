@@ -31,6 +31,18 @@ export function Hero({ hero, locale }: HeroProps) {
                 {hero.subhead}
               </p>
               <p className="max-w-[60ch] text-body-l text-ink/80">{hero.body}</p>
+
+              {hero.banner && (
+                <div className="border-l-2 border-forge bg-forge/5 px-4 py-3 max-w-[60ch]">
+                  <p className="text-body text-ink">
+                    <span aria-hidden="true" className="mr-2 font-mono text-forge">
+                      ▸
+                    </span>
+                    {hero.banner}
+                  </p>
+                </div>
+              )}
+
               <Cluster gap="3">
                 <LinkButton
                   href={`/${locale}${hero.primaryCta.href}`}
@@ -66,13 +78,13 @@ export function Hero({ hero, locale }: HeroProps) {
 
       <div className="absolute bottom-8 left-8 hidden lg:block">
         <RotatingSeal
-          text="· SWISS-CONTROLLED SUPPLY · CRITICAL APPLICATIONS "
+          text="· SWISS-MANAGED · MILL-PRODUCED · GLOBALLY DELIVERED "
           size={160}
         />
       </div>
 
       <div className="absolute left-4 top-1/2 hidden -translate-y-1/2 xl:block">
-        <VerticalRail>EN 10204 · 3.1 / 3.2</VerticalRail>
+        <VerticalRail>API · ASTM · ASME · NACE</VerticalRail>
       </div>
 
       <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 lg:block">

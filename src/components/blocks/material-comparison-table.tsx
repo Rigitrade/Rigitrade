@@ -7,12 +7,24 @@ import { Container } from "@/components/primitives/container"
 import { Section } from "@/components/primitives/section"
 import { SectionLabel } from "@/components/typography/section-label"
 import { DisplayHeading } from "@/components/typography/display-heading"
-import type { HomeContent } from "@/lib/content/schema"
 
 type SortKey = "name" | "family" | "maxTemp" | "tensileStrength"
 
+type Alloy = {
+  name: string
+  family: string
+  maxTemp: string
+  corrosionRating: string
+  tensileStrength: string
+  keyApplications: string[]
+}
+
 type MaterialComparisonTableProps = {
-  materials: HomeContent["materials"]
+  materials: {
+    number: string
+    callout: string
+    alloys: Alloy[]
+  }
   locale: "en" | "de"
   showCta?: boolean
   showCallout?: boolean

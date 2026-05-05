@@ -16,80 +16,95 @@ const heroSchema = z.object({
   headline: z.string(),
   subhead: z.string(),
   body: z.string(),
+  banner: z.string().optional(),
   primaryCta: ctaSchema,
   secondaryCta: ctaSchema,
   image: imageSchema,
 })
 
-const trustSchema = z.object({
-  items: z.array(z.string()).min(1),
+const strategicValueSchema = z.object({
+  number: z.string(),
+  label: z.string(),
+  headline: z.string(),
+  intro: z.string(),
+  drivers: z.array(z.string()).min(1),
+  body: z.string(),
 })
 
-const solutionItemSchema = z.object({
+const capabilityItemSchema = z.object({
   title: z.string(),
-  spec: z.string(),
   description: z.string(),
-  image: imageSchema,
-  href: z.string(),
+  detail: z.string().optional(),
+  image: imageSchema.optional(),
 })
 
-const solutionsSchema = z.object({
+const capabilitiesSchema = z.object({
   number: z.string(),
-  intro: z.string(),
-  items: z.array(solutionItemSchema).min(1),
+  label: z.string(),
+  items: z.array(capabilityItemSchema).min(1),
+  standards: z.string(),
 })
 
-const alloySchema = z.object({
+const alloyFamilySchema = z.object({
   name: z.string(),
-  family: z.string(),
-  maxTemp: z.string(),
-  corrosionRating: z.string(),
-  tensileStrength: z.string(),
-  keyApplications: z.array(z.string()).min(1),
+  alloys: z.array(z.string()).min(1),
+  benefit: z.string(),
 })
 
-const materialsSchema = z.object({
+const metallurgyAuthoritySchema = z.object({
   number: z.string(),
-  callout: z.string(),
-  alloys: z.array(alloySchema).min(1),
+  label: z.string(),
+  families: z.array(alloyFamilySchema).min(1),
 })
 
-const pillarSchema = z.object({
+const manufacturingSchema = z.object({
+  number: z.string(),
+  label: z.string(),
+  aod: z.object({
+    title: z.string(),
+    bullets: z.array(z.string()).min(1),
+    benefit: z.string(),
+  }),
+  route: z.object({
+    title: z.string(),
+    flow: z.string(),
+    bullets: z.array(z.string()).min(1),
+  }),
+})
+
+const capacityBlockSchema = z.object({
   title: z.string(),
-  points: z.array(z.string()).min(1),
+  bullets: z.array(z.string()).min(1),
 })
 
-const pillarsSchema = z.object({
+const productionCapacitySchema = z.object({
   number: z.string(),
-  left: pillarSchema,
-  right: pillarSchema,
+  label: z.string(),
+  blocks: z.array(capacityBlockSchema).min(1),
 })
 
-const commodityGroupSchema = z.object({
-  title: z.string(),
-  items: z.array(z.string()).min(1),
-})
-
-const commoditiesBlockSchema = z.object({
+const applicationsSchema = z.object({
   number: z.string(),
+  label: z.string(),
   intro: z.string(),
-  groups: z.array(commodityGroupSchema).min(1),
-  href: z.string(),
+  industries: z.array(z.string()).min(1),
 })
 
 const finalCtaSchema = z.object({
   headline: z.string(),
+  body: z.string().optional(),
   primaryCta: ctaSchema,
   secondaryCta: ctaSchema,
 })
 
 export const homeSchema = z.object({
   hero: heroSchema,
-  trust: trustSchema,
-  solutions: solutionsSchema,
-  materials: materialsSchema,
-  pillars: pillarsSchema,
-  commodities: commoditiesBlockSchema,
+  strategicValue: strategicValueSchema,
+  capabilities: capabilitiesSchema,
+  metallurgy: metallurgyAuthoritySchema,
+  manufacturing: manufacturingSchema,
+  productionCapacity: productionCapacitySchema,
+  applications: applicationsSchema,
   finalCta: finalCtaSchema,
 })
 
@@ -100,7 +115,7 @@ const pageHeaderSchema = z.object({
   intro: z.string(),
 })
 
-export const solutionsPageSchema = z.object({
+export const capabilitiesPageSchema = z.object({
   pageHeader: pageHeaderSchema,
   sections: z
     .array(
@@ -115,10 +130,19 @@ export const solutionsPageSchema = z.object({
     .min(1),
 })
 
+const alloyDetailSchema = z.object({
+  name: z.string(),
+  family: z.string(),
+  maxTemp: z.string(),
+  corrosionRating: z.string(),
+  tensileStrength: z.string(),
+  keyApplications: z.array(z.string()).min(1),
+})
+
 export const materialsPageSchema = z.object({
   pageHeader: pageHeaderSchema,
   comparisonNote: z.string(),
-  alloys: z.array(alloySchema).min(1),
+  alloys: z.array(alloyDetailSchema).min(1),
   selectionGuidance: z.array(
     z.object({
       question: z.string(),
@@ -127,24 +151,25 @@ export const materialsPageSchema = z.object({
   ),
 })
 
-export const commoditiesPageSchema = z.object({
-  pageHeader: pageHeaderSchema,
-  groups: z.array(commodityGroupSchema).min(1),
-})
-
 export const aboutPageSchema = z.object({
   pageHeader: pageHeaderSchema,
-  holding: z.object({
+  heritage: z.object({
     title: z.string(),
     body: z.string(),
-    sisterBrands: z.array(
-      z.object({
-        name: z.string(),
-        domain: z.string(),
-        sector: z.string(),
-      }),
-    ),
   }),
+  facilities: z.array(
+    z.object({
+      location: z.string(),
+      role: z.string(),
+      detail: z.string().optional(),
+    }),
+  ),
+  timeline: z.array(
+    z.object({
+      milestone: z.string(),
+      date: z.string(),
+    }),
+  ),
 })
 
 export const contactPageSchema = z.object({
@@ -173,21 +198,17 @@ export const navSchema = z.object({
 })
 
 export const footerSchema = z.object({
+  tagline: z.string(),
+  technologyTag: z.string(),
   office: z.object({
-    address: z.string(),
     company: z.string(),
+    address: z.string(),
     cheNumber: z.string().optional(),
   }),
   contact: z.object({
     email: z.string().email(),
     phone: z.string(),
   }),
-  sisterBrands: z.array(
-    z.object({
-      name: z.string(),
-      href: z.string(),
-    }),
-  ),
   legal: z.array(
     z.object({
       label: z.string(),
@@ -202,19 +223,13 @@ export const footerSchema = z.object({
   ),
 })
 
-export const trustStripSchema = z.object({
-  items: z.array(z.string()).min(1),
-})
-
 export type ImageContent = z.infer<typeof imageSchema>
 export type CtaContent = z.infer<typeof ctaSchema>
 export type HomeContent = z.infer<typeof homeSchema>
-export type SolutionsPageContent = z.infer<typeof solutionsPageSchema>
+export type CapabilitiesPageContent = z.infer<typeof capabilitiesPageSchema>
 export type MaterialsPageContent = z.infer<typeof materialsPageSchema>
-export type CommoditiesPageContent = z.infer<typeof commoditiesPageSchema>
 export type AboutPageContent = z.infer<typeof aboutPageSchema>
 export type ContactPageContent = z.infer<typeof contactPageSchema>
 export type PrivacyPageContent = z.infer<typeof privacyPageSchema>
 export type NavContent = z.infer<typeof navSchema>
 export type FooterContent = z.infer<typeof footerSchema>
-export type TrustStripContent = z.infer<typeof trustStripSchema>
