@@ -172,17 +172,28 @@ export const aboutPageSchema = z.object({
     title: z.string(),
     body: z.string(),
   }),
+  stats: z
+    .array(
+      z.object({
+        value: z.string(),
+        unit: z.string(),
+        label: z.string(),
+      }),
+    )
+    .min(1),
   facilities: z.array(
     z.object({
       location: z.string(),
       role: z.string(),
       detail: z.string().optional(),
+      image: imageSchema,
     }),
   ),
   timeline: z.array(
     z.object({
       milestone: z.string(),
       date: z.string(),
+      detail: z.string().optional(),
     }),
   ),
 })

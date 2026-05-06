@@ -78,6 +78,23 @@ const ASSETS: Asset[] = [
     unsplashId: "1680866362357-d8192e20a7dc", // molten metal #3
     width: 2400,
   },
+
+  // Facility photos for the About page
+  {
+    out: "public/img/facilities/zurich.jpg",
+    unsplashId: "1573137785546-9d19e4f33f87", // Zürich
+    width: 1600,
+  },
+  {
+    out: "public/img/facilities/uk.jpg",
+    unsplashId: "1692523087152-080b04c8ed88", // UK industrial city
+    width: 1600,
+  },
+  {
+    out: "public/img/facilities/egypt.jpg",
+    unsplashId: "1601816500593-8f1276479ea6", // Alexandria port
+    width: 1600,
+  },
 ]
 
 async function download(asset: Asset): Promise<void> {
