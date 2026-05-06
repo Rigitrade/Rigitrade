@@ -33,13 +33,13 @@ export function SiteFooter({ locale, content }: SiteFooterProps) {
 
         <Hairline className="bg-paper/20" />
 
-        <div className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-3">
+        <div className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <h3 className="mb-4 font-mono text-micro uppercase tracking-[0.08em] text-paper/60">
               Office
             </h3>
             <p className="text-body text-paper">{content.office.company}</p>
-            <p className="mt-1 text-body text-paper/80">
+            <p className="mt-1 whitespace-pre-line text-body text-paper/80">
               {content.office.address}
             </p>
             {content.office.cheNumber && (
@@ -48,6 +48,17 @@ export function SiteFooter({ locale, content }: SiteFooterProps) {
               </p>
             )}
           </div>
+
+          {content.branchOffice && (
+            <div>
+              <h3 className="mb-4 font-mono text-micro uppercase tracking-[0.08em] text-paper/60">
+                {content.branchOffice.label}
+              </h3>
+              <p className="whitespace-pre-line text-body text-paper/80">
+                {content.branchOffice.address}
+              </p>
+            </div>
+          )}
 
           <div>
             <h3 className="mb-4 font-mono text-micro uppercase tracking-[0.08em] text-paper/60">

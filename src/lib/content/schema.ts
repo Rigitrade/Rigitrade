@@ -231,6 +231,12 @@ export const footerSchema = z.object({
     address: z.string(),
     cheNumber: z.string().optional(),
   }),
+  branchOffice: z
+    .object({
+      label: z.string(),
+      address: z.string(),
+    })
+    .optional(),
   contact: z.object({
     email: z.string().email(),
     phone: z.string(),
