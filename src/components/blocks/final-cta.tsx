@@ -1,5 +1,5 @@
+import Image from "next/image"
 import { Container } from "@/components/primitives/container"
-import { Section } from "@/components/primitives/section"
 import { Stack } from "@/components/primitives/stack"
 import { Cluster } from "@/components/primitives/cluster"
 import { LinkButton } from "@/components/ui/link-button"
@@ -13,15 +13,34 @@ type FinalCtaProps = {
 
 export function FinalCta({ finalCta, locale }: FinalCtaProps) {
   return (
-    <Section surface="ink" density="loose">
+    <section className="relative isolate overflow-hidden bg-ink py-section-mobile text-paper lg:py-section-loose">
+      <Image
+        src="/img/featured/aod-furnace.jpg"
+        alt=""
+        fill
+        sizes="100vw"
+        className="absolute inset-0 -z-10 object-cover"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-ink/95 via-ink/80 to-ink/40"
+      />
+
       <Container>
         <div className="max-w-3xl">
           <Stack gap="6">
-            <DisplayHeading as="h2" size="display-m" className="text-paper">
+            <span className="font-mono text-micro uppercase tracking-[0.2em] text-paper/70">
+              <span
+                className="mr-2 inline-block h-1 w-6 align-middle bg-forge"
+                aria-hidden="true"
+              />
+              Final · Get in Touch
+            </span>
+            <DisplayHeading as="h2" size="display-l" className="text-paper">
               {finalCta.headline}
             </DisplayHeading>
             {finalCta.body && (
-              <p className="max-w-[60ch] text-body-l text-paper/80">
+              <p className="max-w-[60ch] text-body-l text-paper/85 lg:text-h3">
                 {finalCta.body}
               </p>
             )}
@@ -44,6 +63,6 @@ export function FinalCta({ finalCta, locale }: FinalCtaProps) {
           </Stack>
         </div>
       </Container>
-    </Section>
+    </section>
   )
 }
