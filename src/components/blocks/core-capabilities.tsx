@@ -19,14 +19,14 @@ export function CoreCapabilities({ content }: CoreCapabilitiesProps) {
           <SectionLabel number={content.number} label={content.label} />
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:items-stretch">
           {content.items.map((item, i) => (
             <article
               key={item.title}
-              className="group relative isolate flex flex-col bg-paper"
+              className="group relative isolate flex h-full flex-col bg-paper"
             >
               {item.image && (
-                <div className="relative aspect-[4/5] overflow-hidden bg-stone">
+                <div className="relative aspect-[4/5] shrink-0 overflow-hidden bg-stone">
                   <ResponsiveImage
                     src={item.image.src}
                     alt={item.image.alt}
@@ -36,15 +36,17 @@ export function CoreCapabilities({ content }: CoreCapabilitiesProps) {
                   />
                 </div>
               )}
-              <div className="border-x border-b border-hairline p-6">
-                <Stack gap="3">
+              <div className="flex flex-1 flex-col border-x border-b border-hairline p-6">
+                <Stack gap="3" className="flex-1">
                   <span className="font-mono text-micro uppercase tracking-[0.16em] text-ink/50">
                     {String(i + 1).padStart(2, "0")} — Capability
                   </span>
                   <h3 className="text-h3 font-medium text-ink">{item.title}</h3>
-                  <DataChip>{item.description}</DataChip>
+                  <DataChip className="self-start">{item.description}</DataChip>
                   {item.detail && (
-                    <p className="text-body text-ink/70">{item.detail}</p>
+                    <p className="text-body text-ink/70 line-clamp-3">
+                      {item.detail}
+                    </p>
                   )}
                 </Stack>
               </div>

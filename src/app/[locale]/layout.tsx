@@ -8,6 +8,7 @@ import { switzer, jetbrains } from "@/lib/fonts"
 import { cn } from "@/lib/utils/cn"
 import { SiteHeader } from "@/components/interactive/site-header"
 import { SiteFooter } from "@/components/interactive/site-footer"
+import { WhatsappFloating } from "@/components/interactive/whatsapp-floating"
 import { loadSharedContent } from "@/lib/content/load"
 import { footerSchema, navSchema } from "@/lib/content/schema"
 
@@ -86,6 +87,7 @@ export default async function LocaleLayout({
           />
           <main id="main">{children}</main>
           <SiteFooter locale={locale as Locale} content={footer} />
+          <WhatsappFloating number="41763666669" />
           <Analytics />
         </NextIntlClientProvider>
       </body>
