@@ -85,8 +85,20 @@ manufacturing:
     benefit: "Delivering maximum corrosion resistance and long-term performance"
   route:
     title: "Integrated Production Route"
-    flow: "EAF → AOD → Ladle Furnace → Continuous Casting"
-    bullets:
+    steps:
+      - code: "EAF"
+        name: "Electric Arc Furnace"
+        detail: "Raw melt — scrap and alloying elements melted via high-current electric arc."
+      - code: "AOD"
+        name: "Argon Oxygen Decarburization"
+        detail: "Decarburization and refining — ultra-low carbon levels with controlled chemistry."
+      - code: "LF"
+        name: "Ladle Furnace"
+        detail: "Composition and temperature fine-tuning before casting."
+      - code: "CC"
+        name: "Continuous Casting"
+        detail: "Strand-cast into billets for downstream forming and machining."
+    benefits:
       - "Consistent chemical composition"
       - "Precise temperature control"
       - "High material cleanliness and integrity"
@@ -94,17 +106,25 @@ manufacturing:
 productionCapacity:
   number: "06"
   label: "PRODUCTION CAPACITY & GLOBAL DELIVERY"
-  blocks:
-    - title: "Production Capacity"
-      bullets:
-        - "17 tons/day seamless pipes (initial phase)"
-        - "Scalable to 35 tons/day"
-        - "~50 tons billet capacity"
+  stats:
+    - value: "17"
+      unit: "tons/day"
+      label: "Initial-phase seamless pipe output"
+    - value: "35"
+      unit: "tons/day"
+      label: "Scalable peak production"
+    - value: "50"
+      unit: "tons"
+      label: "Billet capacity per cycle"
+    - value: "2026"
+      unit: "Q3"
+      label: "Egypt facility production start"
+  context:
     - title: "Global Footprint"
       bullets:
-        - "Manufacturing: United Kingdom & Egypt"
+        - "Manufacturing — United Kingdom & Egypt"
         - "New facility in Egypt launching 2026"
-        - "Headquarters: Zürich, Switzerland"
+        - "Headquarters — Zürich, Switzerland"
     - title: "Strategic Logistics"
       bullets:
         - "Mediterranean access via Alexandria"
@@ -112,9 +132,9 @@ productionCapacity:
         - "Direct routes to global project sites"
     - title: "Project Timeline"
       bullets:
-        - "Orders accepted: February 2026"
-        - "Production start: July 2026"
-        - "Zürich logistics hub expansion: 2027"
+        - "Orders accepted — February 2026"
+        - "Production start — July 2026"
+        - "Zürich logistics hub expansion — 2027"
 
 applications:
   number: "07"

@@ -4,9 +4,10 @@ import { motion, useReducedMotion } from "framer-motion"
 import { type ElementType, type ReactNode } from "react"
 import { cn } from "@/lib/utils/cn"
 
-type Size = "display-xl" | "display-l" | "display-m" | "h1" | "h2"
+type Size = "display-2xl" | "display-xl" | "display-l" | "display-m" | "h1" | "h2"
 
 const sizeClasses: Record<Size, string> = {
+  "display-2xl": "text-display-2xl",
   "display-xl": "text-display-xl",
   "display-l": "text-display-l",
   "display-m": "text-display-m",

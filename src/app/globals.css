@@ -17,8 +17,12 @@
   --font-sans: var(--font-switzer), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", Menlo, monospace;
 
-  /* Modular type scale (1.25) */
-  --text-display-xl: 6rem;
+  /* Modular type scale (1.25). Display sizes use clamp for fluid responsive. */
+  --text-display-2xl: clamp(4rem, 7.5vw, 7rem);
+  --text-display-2xl--line-height: 1.2;
+  --text-display-2xl--letter-spacing: -0.025em;
+
+  --text-display-xl: clamp(3rem, 7vw, 7rem);
   --text-display-xl--line-height: 1;
   --text-display-xl--letter-spacing: -0.02em;
 
@@ -90,6 +94,26 @@
   }
 }
 
+@keyframes scroll-cue {
+  0% {
+    transform: translateY(-100%);
+  }
+  60%, 100% {
+    transform: translateY(200%);
+  }
+}
+
+@keyframes wa-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%, 100% {
+    transform: scale(1.55);
+    opacity: 0;
+  }
+}
+
 /* Hairline rule */
 @layer utilities {
   .border-hairline {
@@ -113,6 +137,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
   }
   body {
     font-family: var(--font-sans);

@@ -1,13 +1,13 @@
 import type { Metadata } from "next"
 import { setRequestLocale } from "next-intl/server"
 import { Hero } from "@/components/blocks/hero"
-import { AodBanner } from "@/components/blocks/aod-banner"
 import { StrategicValue } from "@/components/blocks/strategic-value"
 import { CoreCapabilities } from "@/components/blocks/core-capabilities"
 import { MetallurgyAuthority } from "@/components/blocks/metallurgy-authority"
 import { ManufacturingTechnology } from "@/components/blocks/manufacturing-technology"
+import { FeatureBreak } from "@/components/blocks/feature-break"
 import { ProductionCapacity } from "@/components/blocks/production-capacity"
-import { ApplicationFocus } from "@/components/blocks/application-focus"
+import { IndustryTiles } from "@/components/blocks/industry-tiles"
 import { FinalCta } from "@/components/blocks/final-cta"
 import { loadPageContent } from "@/lib/content/load"
 import { homeSchema } from "@/lib/content/schema"
@@ -40,8 +40,14 @@ export default async function HomePage({
       <CoreCapabilities content={frontmatter.capabilities} />
       <MetallurgyAuthority content={frontmatter.metallurgy} />
       <ManufacturingTechnology content={frontmatter.manufacturing} />
+      <FeatureBreak
+        src="/img/featured/aod-furnace.jpg"
+        alt="Molten alloy stream from an AOD refining vessel"
+        quote="When standard solutions are not enough."
+        attribution="Rigitrade · Advanced Refining — AOD Technology"
+      />
       <ProductionCapacity content={frontmatter.productionCapacity} />
-      <ApplicationFocus content={frontmatter.applications} />
+      <IndustryTiles content={frontmatter.applications} />
       <FinalCta finalCta={frontmatter.finalCta} locale={locale as Locale} />
     </>
   )

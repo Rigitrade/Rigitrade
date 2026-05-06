@@ -12,7 +12,7 @@ type StrategicValueProps = {
 
 export function StrategicValue({ content }: StrategicValueProps) {
   return (
-    <Section>
+    <Section id="strategic-value">
       <Container>
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">

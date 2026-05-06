@@ -67,8 +67,16 @@ const manufacturingSchema = z.object({
   }),
   route: z.object({
     title: z.string(),
-    flow: z.string(),
-    bullets: z.array(z.string()).min(1),
+    steps: z
+      .array(
+        z.object({
+          code: z.string(),
+          name: z.string(),
+          detail: z.string(),
+        }),
+      )
+      .min(1),
+    benefits: z.array(z.string()).min(1),
   }),
 })
 
@@ -77,10 +85,17 @@ const capacityBlockSchema = z.object({
   bullets: z.array(z.string()).min(1),
 })
 
+const capacityStatSchema = z.object({
+  value: z.string(),
+  unit: z.string(),
+  label: z.string(),
+})
+
 const productionCapacitySchema = z.object({
   number: z.string(),
   label: z.string(),
-  blocks: z.array(capacityBlockSchema).min(1),
+  stats: z.array(capacityStatSchema).min(1),
+  context: z.array(capacityBlockSchema).min(1),
 })
 
 const applicationsSchema = z.object({
@@ -157,17 +172,28 @@ export const aboutPageSchema = z.object({
     title: z.string(),
     body: z.string(),
   }),
+  stats: z
+    .array(
+      z.object({
+        value: z.string(),
+        unit: z.string(),
+        label: z.string(),
+      }),
+    )
+    .min(1),
   facilities: z.array(
     z.object({
       location: z.string(),
       role: z.string(),
       detail: z.string().optional(),
+      image: imageSchema,
     }),
   ),
   timeline: z.array(
     z.object({
       milestone: z.string(),
       date: z.string(),
+      detail: z.string().optional(),
     }),
   ),
 })

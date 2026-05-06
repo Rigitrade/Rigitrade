@@ -13,37 +13,40 @@ type CoreCapabilitiesProps = {
 
 export function CoreCapabilities({ content }: CoreCapabilitiesProps) {
   return (
-    <Section surface="stone">
+    <Section surface="paper">
       <Container>
-        <div className="mb-12">
+        <div className="mb-12 max-w-2xl">
           <SectionLabel number={content.number} label={content.label} />
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:items-stretch">
           {content.items.map((item, i) => (
             <article
               key={item.title}
-              className="flex flex-col border border-hairline bg-paper"
+              className="group relative isolate flex h-full flex-col bg-paper"
             >
               {item.image && (
-                <div className="relative aspect-[5/4] overflow-hidden border-b border-hairline bg-stone">
+                <div className="relative aspect-[4/5] shrink-0 overflow-hidden bg-stone">
                   <ResponsiveImage
                     src={item.image.src}
                     alt={item.image.alt}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
+                    className="transition-transform duration-1000 ease-out group-hover:scale-105"
                   />
                 </div>
               )}
-              <div className="flex flex-1 flex-col p-6">
+              <div className="flex flex-1 flex-col border-x border-b border-hairline p-6">
                 <Stack gap="3" className="flex-1">
-                  <span className="font-mono text-micro uppercase tracking-[0.08em] text-ink/50">
-                    {String(i + 1).padStart(2, "0")}
+                  <span className="font-mono text-micro uppercase tracking-[0.16em] text-ink/50">
+                    {String(i + 1).padStart(2, "0")} — Capability
                   </span>
-                  <h3 className="text-h3 font-medium">{item.title}</h3>
-                  <DataChip>{item.description}</DataChip>
+                  <h3 className="text-h3 font-medium text-ink">{item.title}</h3>
+                  <DataChip className="self-start">{item.description}</DataChip>
                   {item.detail && (
-                    <p className="text-body text-ink/80">{item.detail}</p>
+                    <p className="text-body text-ink/70 line-clamp-3">
+                      {item.detail}
+                    </p>
                   )}
                 </Stack>
               </div>
