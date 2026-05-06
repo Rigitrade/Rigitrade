@@ -67,8 +67,16 @@ const manufacturingSchema = z.object({
   }),
   route: z.object({
     title: z.string(),
-    flow: z.string(),
-    bullets: z.array(z.string()).min(1),
+    steps: z
+      .array(
+        z.object({
+          code: z.string(),
+          name: z.string(),
+          detail: z.string(),
+        }),
+      )
+      .min(1),
+    benefits: z.array(z.string()).min(1),
   }),
 })
 
