@@ -85,10 +85,17 @@ const capacityBlockSchema = z.object({
   bullets: z.array(z.string()).min(1),
 })
 
+const capacityStatSchema = z.object({
+  value: z.string(),
+  unit: z.string(),
+  label: z.string(),
+})
+
 const productionCapacitySchema = z.object({
   number: z.string(),
   label: z.string(),
-  blocks: z.array(capacityBlockSchema).min(1),
+  stats: z.array(capacityStatSchema).min(1),
+  context: z.array(capacityBlockSchema).min(1),
 })
 
 const applicationsSchema = z.object({
