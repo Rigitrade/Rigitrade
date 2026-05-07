@@ -16,6 +16,7 @@
   /* Type families (wired in layout via next/font CSS variables) */
   --font-sans: var(--font-switzer), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, "SF Mono", Menlo, monospace;
+  --font-logo: var(--font-logo), "Arial Black", "Helvetica Neue", sans-serif;
 
   /* Modular type scale (1.25). Display sizes use clamp for fluid responsive. */
   --text-display-2xl: clamp(4rem, 7.5vw, 7rem);

@@ -4,7 +4,7 @@ import { NextIntlClientProvider, hasLocale } from "next-intl"
 import { getMessages, setRequestLocale } from "next-intl/server"
 import { Analytics } from "@vercel/analytics/next"
 import { routing, type Locale } from "@/i18n/routing"
-import { switzer, jetbrains } from "@/lib/fonts"
+import { switzer, jetbrains, logoFont } from "@/lib/fonts"
 import { cn } from "@/lib/utils/cn"
 import { SiteHeader } from "@/components/interactive/site-header"
 import { SiteFooter } from "@/components/interactive/site-footer"
@@ -67,7 +67,10 @@ export default async function LocaleLayout({
   }
 
   return (
-    <html lang={locale} className={cn(switzer.variable, jetbrains.variable)}>
+    <html
+      lang={locale}
+      className={cn(switzer.variable, jetbrains.variable, logoFont.variable)}
+    >
       <body className="bg-paper text-ink antialiased">
         <script
           type="application/ld+json"
