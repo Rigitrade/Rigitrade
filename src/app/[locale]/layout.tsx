@@ -54,9 +54,10 @@ export default async function LocaleLayout({
     logo: `${baseUrl}/og-default.png`,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Schaffhauserstr. 550",
-      addressLocality: "Zürich",
-      postalCode: "8052",
+      streetAddress: "Tannenstrasse 16",
+      addressLocality: "Embrach",
+      addressRegion: "ZH",
+      postalCode: "8424",
       addressCountry: "CH",
     },
     contactPoint: {

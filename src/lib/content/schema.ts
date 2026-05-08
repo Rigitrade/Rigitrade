@@ -227,6 +227,7 @@ export const footerSchema = z.object({
   tagline: z.string(),
   technologyTag: z.string(),
   office: z.object({
+    label: z.string().optional(),
     company: z.string(),
     address: z.string(),
     cheNumber: z.string().optional(),
