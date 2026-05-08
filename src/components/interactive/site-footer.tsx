@@ -36,7 +36,7 @@ export function SiteFooter({ locale, content }: SiteFooterProps) {
         <div className="mt-12 grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <h3 className="mb-4 font-mono text-micro uppercase tracking-[0.08em] text-paper/60">
-              Office
+              {content.office.label ?? "Office"}
             </h3>
             <p className="text-body text-paper">{content.office.company}</p>
             <p className="mt-1 whitespace-pre-line text-body text-paper/80">
@@ -101,7 +101,7 @@ export function SiteFooter({ locale, content }: SiteFooterProps) {
           <Hairline className="bg-paper/20" />
           <div className="mt-6 flex flex-col items-start justify-between gap-4 md:flex-row md:items-center">
             <p className="font-mono text-micro uppercase tracking-[0.08em] text-paper/50">
-              © Rigitrade AG {new Date().getFullYear()} · Zürich
+              © Rigitrade AG {new Date().getFullYear()} · Switzerland
             </p>
             <div className="flex items-center gap-3">
               {content.social.map((s) =>

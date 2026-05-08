@@ -52,7 +52,7 @@ export default async function ContactPage({
             <aside className="lg:col-span-4">
               <Stack gap="4">
                 <SectionLabel number="01" label="OFFICE" />
-                <p className="text-body-l text-ink">{frontmatter.office.address}</p>
+                <p className="whitespace-pre-line text-body-l text-ink">{frontmatter.office.address}</p>
                 <Hairline className="my-2" />
                 <LeaderDots left="Email" right={frontmatter.office.email} />
                 <LeaderDots left="Phone" right={frontmatter.office.phone} />
