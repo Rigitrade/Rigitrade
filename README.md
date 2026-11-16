@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# rigitrade.com — Rigitrade AG, Swiss Automotive & Mobility Group
 
-## Getting Started
+Corporate site for Rigitrade AG (zuriauto, Carseek.ch, TrackMyCar24).
+The previous metals/AOD site is preserved on the `archive/metals-site` branch (tag `metals-site-final`).
 
-First, run the development server:
+## Stack
+
+- Next.js 16 App Router, static export (`output: "export"`, trailing slashes), Tailwind CSS 4
+- Two root layouts: `src/app/(de)` serves German at `/` (`lang="de-CH"`), `src/app/(en)/en` serves English at `/en/`
+- Copy lives in typed dictionaries: `src/content/de.ts`, `src/content/en.ts` (same `Dictionary` type, so a missing translation fails the build)
+- URL map: `src/content/routes.ts` (from the SEO and setup doc)
+- Brand tokens: `src/app/globals.css` (from the Brand-CI package, Direction A)
+
+## URLs
+
+| Page | German | English |
+| --- | --- | --- |
+| Home | `/` | `/en/` |
+| About | `/ueber-uns/` | `/en/about/` |
+| Brands | `/marken/` | `/en/brands/` |
+| Strategy | `/strategie/` | `/en/strategy/` |
+| Contact | `/kontakt/` | `/en/contact/` |
+| Legal notice | `/impressum/` | `/en/legal-notice/` |
+| Privacy | `/datenschutz/` | `/en/privacy/` |
+
+Every page carries hreflang alternates (de-CH, en, x-default → German); `sitemap.xml` and `robots.txt` are generated at build.
+
+## Photos
+
+Masters (one per slot, named after the slot, e.g. `hero-1.jpg`) are converted to WebP in four widths:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run photos -- path/to/masters   # writes public/img/<slot>-<640|1080|1600|2400>.webp
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Slots and alt texts: `src/content/photos.ts`. Credits and licences: `PHOTO-CREDITS.md`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev          # local dev server
+npm run type-check   # tsc
+npm run lint         # eslint, zero warnings
+npm test             # vitest unit tests (content parity, routes, SEO limits)
+npm run build        # static export to out/
+npm run test:e2e     # Playwright smoke test against out/ (build first)
+```
 
-## Learn More
+## Environment
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `NEXT_PUBLIC_SITE_URL` — canonical origin, default `https://www.rigitrade.com`
+- `NEXT_PUBLIC_FORMSPREE_CONTACT_ID` — contact form endpoint; without it the form opens the visitor's mail client
