@@ -2,11 +2,15 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     { "source": "/de", "destination": "/", "permanent": true },
+    { "source": "/de/", "destination": "/", "permanent": true },
     { "source": "/de/about", "destination": "/ueber-uns/", "permanent": true },
+    { "source": "/de/about/", "destination": "/ueber-uns/", "permanent": true },
     { "source": "/de/contact", "destination": "/kontakt/", "permanent": true },
+    { "source": "/de/contact/", "destination": "/kontakt/", "permanent": true },
     { "source": "/de/privacy", "destination": "/datenschutz/", "permanent": true },
-    { "source": "/de/materials", "destination": "/", "permanent": true },
+    { "source": "/de/privacy/", "destination": "/datenschutz/", "permanent": true },
     { "source": "/de/:path*", "destination": "/", "permanent": true },
-    { "source": "/en/materials", "destination": "/en/", "permanent": true }
+    { "source": "/en/materials", "destination": "/en/", "permanent": true },
+    { "source": "/en/materials/", "destination": "/en/", "permanent": true }
   ]
 }
